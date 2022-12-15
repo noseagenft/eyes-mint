@@ -31,6 +31,7 @@ import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { SolanaMobileWalletAdapterWalletName } from "@solana-mobile/wallet-adapter-mobile";
+import Preview from "./preview.gif";
 
 const ConnectButton = styled(WalletDialogButton)`
   width: 100%;
@@ -102,6 +103,7 @@ const Home = (props: HomeProps) => {
             connection
           );
           console.log("Candy machine state: ", cndy);
+          console.log(cndy.state.tokenMint?.toBase58());
           let active = cndy?.state.goLiveDate
             ? cndy?.state.goLiveDate.toNumber() < new Date().getTime() / 1000
             : false;
@@ -518,17 +520,39 @@ const Home = (props: HomeProps) => {
                         ? "Discount Price"
                         : "Price"}
                     </Typography>
-                    <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      style={{ fontWeight: "bold" }}
-                    >
-                      {isWhitelistUser && discountPrice
-                        ? `◎ ${formatNumber.asNumber(discountPrice)}`
-                        : `◎ ${formatNumber.asNumber(
-                            candyMachine.state.price
-                          )}`}
-                    </Typography>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      {candyMachine.state.tokenMint?.toBase58() ===
+                        "GmBwNscpLsjctXS4yEt43b1sBzeboUJythhAXw23deg1" && (
+                        <img
+                          width={"28px"}
+                          height={"28px"}
+                          alt="sniff"
+                          src="https://2728195818-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FrzA5LV7VnrKHudzk3m5d%2Fuploads%2FeoNoAoE1UsbabfOdTj9o%2Fsniff%20token.png?alt=media&token=42077726-1352-4d6e-9528-58eddb58dbef"
+                        />
+                      )}
+                      &nbsp;
+                      <Typography
+                        variant="h6"
+                        color="textPrimary"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        {isWhitelistUser && discountPrice
+                          ? `${
+                              candyMachine.state.tokenMint?.toBase58() ===
+                              "GmBwNscpLsjctXS4yEt43b1sBzeboUJythhAXw23deg1"
+                                ? ""
+                                : "◎"
+                            } ${formatNumber.asNumber(discountPrice)}`
+                          : `${
+                              candyMachine.state.tokenMint?.toBase58() ===
+                              "GmBwNscpLsjctXS4yEt43b1sBzeboUJythhAXw23deg1"
+                                ? ""
+                                : "◎"
+                            } ${formatNumber.asNumber(
+                              candyMachine.state.price
+                            )}`}
+                      </Typography>
+                    </div>
                   </Grid>
                   <Grid item xs={5}>
                     {isActive && endDate && Date.now() < endDate.getTime() ? (
@@ -637,7 +661,84 @@ const Home = (props: HomeProps) => {
           </Typography>
         </Paper>
       </Container>
-
+      <Typography
+        variant="caption"
+        align="center"
+        display="block"
+        style={{ marginTop: 18, color: "white", fontSize: 18 }}
+      >
+        Eyes Age is the second collection as part of the{" "}
+        <a
+          href="https://anatome.fun"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            textDecoration: "none",
+          }}
+        >
+          Anatome
+        </a>{" "}
+        saga of body part NFTs.
+        <br />
+        This collection features 912 fully-animated eyes.
+        <br />
+      </Typography>
+      <Typography
+        variant="caption"
+        align="center"
+        display="block"
+        style={{ marginTop: 18, color: "grey" }}
+      >
+        <a
+          href="https://discord.gg/t5wc8x2Htz"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            width={396}
+            height={396}
+            src={Preview}
+            style={{ borderRadius: 8 }}
+          />
+        </a>
+      </Typography>
+      <Typography
+        variant="caption"
+        align="center"
+        display="block"
+        style={{ marginTop: 18, color: "white", fontSize: 18 }}
+      >
+        Art by
+        <a
+          href="https://twitter.com/realhungrysheep"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            textDecoration: "none",
+            marginLeft: 5,
+          }}
+        >
+          @realhungrysheep
+        </a>
+        <br />
+        <a
+          href="https://discord.gg/t5wc8x2Htz"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            textDecoration: "none",
+            marginLeft: 5,
+          }}
+        >
+          Join our Discord
+        </a>
+      </Typography>
       <Snackbar
         open={alertState.open}
         autoHideDuration={
